@@ -1,0 +1,25 @@
+# Persekitaran Python dan fail sementara
+**/.venv/
+**/.venv-lama/
+**/__pycache__/
+**/.pytest_cache/
+*.pyc
+*.pyo
+.DS_Store
+Thumbs.db
+
+# Rahsia dan konfigurasi peribadi
+.env
+.env.*
+**/.streamlit/secrets.toml
+
+# Data sekolah dan fail hasil eksport: jangan terbitkan secara tidak sengaja
+*.pdf
+*.csv
+*.xlsx
+*.xls
+*.zip
+**/data_relief.json
+**/laporan_semakan.json
+**/diagnostik*.json
+**/diagnostik*.zip

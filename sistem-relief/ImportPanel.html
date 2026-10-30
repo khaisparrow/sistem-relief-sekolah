@@ -1,0 +1,125 @@
+<!doctype html><html lang="ms"><head><base target="_top"><meta charset="utf-8"><style>
+*{box-sizing:border-box}body{margin:0;background:#f2f5f6;color:#183342;font:14px/1.55 system-ui,Segoe UI,sans-serif}header{background:#183d51;color:white;padding:24px}header h1{font-size:23px;margin:0}header p{margin:5px 0;color:#c2d8dd}main{max-width:1120px;margin:auto;padding:24px}.card{background:white;border:1px solid #dce5e8;border-radius:13px;padding:22px;margin-bottom:20px}h2{font-size:17px;margin:0 0 12px}h3{font-size:15px}.muted{color:#607581}.tiny{font-size:12px}label{font-weight:600;display:block;margin:12px 0 6px}input,select,button{font:inherit;padding:10px;border:1px solid #cbd8dd;border-radius:7px}input,select{width:100%;background:white;color:#183342}button{cursor:pointer;background:white;color:#183342;font-weight:600}button.primary{background:#13685f;border-color:#13685f;color:white}button.danger{background:#a33434;color:white;border-color:#a33434}button:disabled{opacity:.5;cursor:default}.row{display:grid;grid-template-columns:2fr 1fr;gap:16px}.actions{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:18px}a{color:#13685f}.notice{background:#fff6e5;border:1px solid #edd6ad;padding:14px;border-radius:8px;margin:14px 0}.error{background:#fff0ed;color:#9b2929;border-color:#edc3bb;white-space:pre-wrap}.success{background:#e9f4ef;color:#195e42;border-color:#bad9c8}.tablewrap{overflow:auto;max-height:500px}table{border-collapse:collapse;width:100%;text-align:left}th{background:#f1f5f6;font-size:12px;color:#506d7a;position:sticky;top:0}td,th{padding:10px;border-bottom:1px solid #e2eaed}td{font-size:12px}td select{min-width:240px;max-width:440px;font-size:12px}code{background:#edf2f4;padding:2px 5px;border-radius:3px}.summary{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:15px 0}.metric{background:#f2f7f5;border-radius:8px;padding:13px}.metric strong{display:block;font-size:24px}#busy{position:fixed;inset:0;background:#f2f5f6cc;z-index:100;display:grid;place-items:center}#busy div{background:white;border:1px solid #dce5e8;border-radius:12px;padding:24px;max-width:90vw}input[type=checkbox]{width:auto;vertical-align:middle;margin-right:8px}.confirm{padding:15px;background:#fff6e5;border-radius:8px}.progress{font-size:12px;letter-spacing:1px;text-transform:uppercase;color:#13685f;font-weight:700}.tag{font-size:11px;background:#e8f3ee;color:#24624c;border-radius:4px;padding:3px 6px}[hidden]{display:none!important}@media(max-width:700px){main{padding:14px}.card{padding:16px}.row{grid-template-columns:1fr}.summary{grid-template-columns:repeat(2,1fr)}}
+</style></head><body><header><h1>Import jadual baharu</h1><p id="school">Sistem Relief Sekolah</p></header><main>
+<a id="back" href="<!--APP_URL-->" target="_top">← Kembali ke sistem relief</a>
+<div id="error" class="notice error" role="alert" hidden></div><div id="success" class="notice success" role="status" hidden></div>
+<section id="recovery" class="card" hidden><h2>Import memerlukan pemulihan</h2><p id="recoveryMessage"></p><button id="recover" class="primary">Pulihkan import</button></section>
+<div id="normal">
+<section class="card"><div class="progress">1 · Pilih fail</div><h2 style="margin-top:8px">Gantikan keseluruhan jadual semasa</h2><p class="muted">Import Excel (.xlsx), CSV UTF-8 atau JSON mengikut struktur eksport jadual. Fail PDF akan diproses oleh projek pengekstrak berasingan.</p>
+<div class="notice">Import ini menggantikan semua baris dalam tab <strong>Jadual, Guru dan Waktu</strong>. Sandaran dibuat dahulu. Rekod relief yang terjejas mulai tarikh kuat kuasa akan dibatalkan untuk ditetapkan semula; rekod tarikh lebih awal dikekalkan.</div>
+<label for="file">Fail jadual</label><input id="file" type="file" accept=".xlsx,.csv,.json"><div id="fileInfo" class="muted tiny" style="margin-top:8px"></div>
+<div class="row"><div><label for="label">Nama / edisi jadual baharu</label><input id="label" maxlength="150" placeholder="Contoh: Jadual Waktu Jilid 6"></div><div><label for="effectiveDate">Tarikh mula digunakan</label><input type="date" id="effectiveDate" max="2100-12-31"></div></div>
+<details style="margin-top:15px"><summary>Struktur fail yang diterima</summary><p class="tiny">Excel mesti mempunyai tab <code>Jadual</code>. Tab <code>Guru</code> boleh membekalkan nama guru jika nama tidak ada dalam Jadual. CSV mengandungi satu jadual pengajaran penuh. JSON menerima format <code>{guru: [...], jadual: [...]}</code> daripada eksport terdahulu.</p><p class="tiny">Lajur wajib: <code>guru_id</code>, <code>nama_guru</code> (atau nama melalui tab Guru), <code>hari_no</code>, <code>waktu</code>, <code>masa_mula</code>, <code>masa_tamat</code>, <code>subjek_label</code>, <code>kelas_label</code>. <code>hari_no</code>: Isnin=1 hingga Jumaat=5. Masa: HH:mm. Nombor waktu mesti merujuk masa yang konsisten untuk semua guru. Bilik, blok dan halaman sumber adalah pilihan.</p><p class="tiny">Maksimum fail 5 MB, 500 guru dan 20,000 waktu. CSV boleh dipisahkan dengan koma, titik koma atau tab. Excel dibaca dalam pelayar tanpa perpustakaan atau perkhidmatan pihak ketiga. Gunakan Chrome atau Edge terkini. Fail lama .xls dan fail berkunci kata laluan tidak disokong.</p></details>
+</section>
+<section id="mappingSection" class="card" hidden><div class="progress">2 · Padankan guru</div><h2 style="margin-top:8px">Kekalkan identiti guru</h2><p class="muted">Nama yang sama dipadankan secara automatik. Untuk nama baharu atau berbeza, pilih guru sedia ada atau <strong>Guru baharu</strong>. Susunan halaman PDF tidak digunakan sebagai identiti.</p><div id="mappingStatus" class="notice"></div><div id="mappingTable" class="tablewrap"></div><div class="actions"><button id="preview" class="primary">Semak import</button><span class="muted tiny">Belum ada data jadual yang diubah.</span></div></section>
+<section id="previewSection" class="card" hidden><div class="progress">3 · Semak dan sahkan</div><h2 style="margin-top:8px" id="previewTitle"></h2><div id="summary" class="summary"></div><div id="details"></div><h3>Contoh data yang akan disimpan</h3><div id="sample" class="tablewrap"></div><div id="cancelSection" hidden><h3>Penetapan relief yang akan dibatalkan</h3><div id="cancelled" class="tablewrap"></div></div>
+<label class="confirm"><input type="checkbox" id="confirm">Saya telah menyemak data dan bersetuju menggantikan keseluruhan jadual semasa serta membatalkan penetapan relief yang disenaraikan.</label><div class="actions"><button id="commit" class="danger" disabled>Overwrite jadual semasa</button><span class="muted tiny">Salinan sandaran akan disimpan dalam spreadsheet.</span></div></section>
+<section class="card"><h2>Sejarah import</h2><div id="history" class="tablewrap"></div><p class="muted tiny">Sandaran tersembunyi menggunakan nama B_… dan dirujuk oleh LogImport. Jangan padamnya kerana rekod tarikh lama menggunakannya. Tab BlokAsal, SemakanSubjek dan Panduan asal kekal sebagai rujukan ekstrak pertama; jadual operasi terkini ialah Jadual, Guru dan Waktu.</p></section>
+</div></main><div id="busy" hidden role="status"><div id="busyText">Memuatkan…</div></div><script>
+'use strict';
+const $=id=>document.getElementById(id),state={info:null,data:null,preview:null,request:null,busy:false,fileVersion:0};
+const esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const nameKey=s=>String(s).normalize('NFKC').trim().replace(/\s+/g,' ').toUpperCase();
+function rpc(name,payload){return new Promise((resolve,reject)=>google.script.run.withSuccessHandler(resolve).withFailureHandler(e=>reject(Error(e.message||String(e))))[name](payload));}
+function busy(on,text){state.busy=on;$('busy').hidden=!on;$('busyText').textContent=text||'Memuatkan…';document.querySelectorAll('button,input,select').forEach(el=>el.disabled=on);$('commit').disabled=on||!$('confirm').checked||!state.preview;}
+function error(text){$('error').textContent=text||'';$('error').hidden=!text;}
+function invalidate(){state.preview=null;state.request=null;$('previewSection').hidden=true;$('confirm').checked=false;$('commit').disabled=true;}
+async function init(){busy(true,'Membaca daftar guru…');error('');try{state.info=await rpc('getImportInfo');$('recovery').hidden=!state.info.recovery;$('normal').hidden=state.info.recovery;if(state.info.recovery){$('recoveryMessage').textContent=state.info.message;return;}$('school').textContent=state.info.school;$('effectiveDate').value=state.info.today;$('effectiveDate').min=state.info.today;$('history').innerHTML=state.info.history.length?table(['Edisi','Kuat kuasa','Status'],state.info.history.map(r=>[r.label,r.date,r.status])):'<p class="muted">Belum ada import menggunakan modul ini.</p>';}catch(e){error(e.message);}finally{busy(false);}}
+function table(heads,rows){return '<table><thead><tr>'+heads.map(h=>'<th>'+esc(h)+'</th>').join('')+'</tr></thead><tbody>'+rows.map(r=>'<tr>'+r.map(v=>'<td>'+esc(v)+'</td>').join('')+'</tr>').join('')+'</tbody></table>';}
+async function readFile(){
+ invalidate();state.data=null;$('mappingSection').hidden=true;error('');$('success').hidden=true;const file=$('file').files[0];if(!file)return;
+ if(file.size>5*1024*1024){error('Fail melebihi 5 MB.');return;}
+ const version=++state.fileVersion;busy(true,'Membaca fail dan menyusun data…');
+ try{
+  const ext=file.name.split('.').pop().toLowerCase();let data;
+  if(ext==='xlsx'){const sheets=await readXlsx(await file.arrayBuffer());data=normalizeData(sheets.Jadual,sheets.Guru);}
+  else if(ext==='csv')data=normalizeData(rowsToObjects(parseCSV(await file.text())),[]);
+  else if(ext==='json'){
+   const raw=JSON.parse((await file.text()).replace(/^\uFEFF/,''));if(!raw||!Array.isArray(raw.jadual))throw Error('JSON mesti mengandungi senarai jadual.');data=normalizeData(raw.jadual,raw.guru||[]);
+  }else throw Error('Pilih fail .xlsx, .csv atau .json.');
+  if(version!==state.fileVersion)return;state.data=data;$('label').value=file.name.replace(/\.[^.]+$/,'').slice(0,150);$('fileInfo').textContent=`${file.name} · ${data.teachers.length} guru · ${data.rows.length} waktu pengajaran`;
+  renderMapping();$('mappingSection').hidden=false;
+ }catch(e){error(e.message);}finally{busy(false);}
+}
+function renderMapping(){
+ const registry=state.info.teachers;
+ $('mappingTable').innerHTML='<table><thead><tr><th>Nama dalam fail</th><th>Padanan dalam sistem</th></tr></thead><tbody>'+state.data.teachers.map((t,i)=>{
+  const exact=registry.filter(r=>nameKey(r.name)===nameKey(t.name));const selected=exact.length===1?exact[0].id:'';
+  return `<tr><td>${esc(t.name)}<br><span class="muted tiny">ID sumber: ${esc(t.sourceId)}</span></td><td><select data-mapping="${i}" aria-label="Padanan ${esc(t.name)}"><option value="">Pilih padanan…</option><option value="NEW">+ Guru baharu</option>${registry.map(r=>`<option value="${esc(r.id)}" ${r.id===selected?'selected':''}>${esc(r.name)} · ${esc(r.id)}${r.active===false?' (tidak aktif)':''}</option>`).join('')}</select></td></tr>`;
+ }).join('')+'</tbody></table>';mappingStatus();
+}
+function mappingStatus(){const missing=[...document.querySelectorAll('[data-mapping]')].filter(el=>!el.value).length;$('mappingStatus').textContent=missing?`${missing} guru masih perlu dipadankan. Pilih Guru baharu jika benar-benar belum ada dalam daftar.`:'Semua guru mempunyai padanan. Klik Semak import untuk mengesahkan data.';}
+async function preview(){
+ error('');invalidate();const mapping={};let missing=false;document.querySelectorAll('[data-mapping]').forEach(el=>{mapping[state.data.teachers[+el.dataset.mapping].sourceId]=el.value;if(!el.value)missing=true;});
+ if(missing){error('Lengkapkan semua padanan guru dahulu.');return;}
+ const request={revision:state.info.revision,label:$('label').value,effectiveDate:$('effectiveDate').value,teachers:state.data.teachers,rows:state.data.rows,mapping:mapping};
+ busy(true,'Menyemak waktu, guru dan kesan terhadap relief…');
+ try{
+  const p=await rpc('previewTimetable',request);state.preview=p;state.request=request;$('previewTitle').textContent=p.label+' — mulai '+p.date;const s=p.summary;
+  $('summary').innerHTML=[['Guru aktif',s.teachers],['Waktu baharu',s.lessons],['Relief dikekalkan',s.retained],['Relief dibatalkan',s.cancelled]].map(([k,v])=>`<div class="metric">${esc(k)}<strong>${v}</strong></div>`).join('');
+  $('details').innerHTML=`<p>${s.matched} guru dipadankan; ${s.newTeachers} guru baharu; ${s.inactive} guru tidak aktif dalam edisi baharu.</p><p>${s.changed} waktu berubah; ${s.added} waktu ditambah; ${s.removed} waktu lama tiada dalam fail.</p>`;
+  if(p.newTeachers.length)$('details').innerHTML+='<details><summary>Guru baharu</summary>'+table(['ID kekal','Nama'],p.newTeachers.map(t=>[t.id,t.name]))+'</details>';
+  if(p.inactive.length)$('details').innerHTML+='<details><summary>Guru yang tidak aktif dalam jadual baharu</summary>'+table(['ID','Nama'],p.inactive.map(t=>[t.id,t.name]))+'</details>';
+  $('sample').innerHTML=table(['Guru','Hari','Waktu','Masa','Subjek','Kelas'],p.sample.map(r=>[r.name,r.day,r.period,r.start+'–'+r.end,r.subject,r.classLabel]));
+  $('cancelSection').hidden=!p.cancelled.length;$('cancelled').innerHTML=table(['Tarikh','Waktu / ID','Sebab'],p.cancelled.map(r=>[r.date,r.jadualId,r.reason]));$('previewSection').hidden=false;$('previewSection').scrollIntoView({behavior:'smooth',block:'start'});
+ }catch(e){error(e.message);}finally{busy(false);}
+}
+async function commit(){if(!state.preview||!$('confirm').checked)return;error('');busy(true,'Membuat sandaran dan menggantikan jadual. Jangan tutup halaman…');try{
+ const result=await rpc('commitTimetable',Object.assign({},state.request,{signature:state.preview.signature,confirmed:true}));invalidate();state.data=null;$('mappingSection').hidden=true;$('file').value='';$('fileInfo').textContent='';$('success').textContent=`${result.message} ${result.teachers} guru, ${result.lessons} waktu. ${result.retained} relief dikekalkan dan ${result.cancelled} dibatalkan. Kembali ke sistem relief dan muat semula paparan. ID import: ${result.id}`;$('success').hidden=false;await init();window.scrollTo(0,0);
+ }catch(e){error(e.message);try{const info=await rpc('getImportInfo');if(info.recovery){state.info=info;$('normal').hidden=true;$('recovery').hidden=false;$('recoveryMessage').textContent=info.message;}}catch(_){} }finally{busy(false);}}
+function normalizeData(rows,teachers){
+ if(!Array.isArray(rows)||!rows.length||rows.length>20000)throw Error('Jadual mesti mengandungi 1 hingga 20,000 baris data.');
+ const source=new Map();const add=(id,name)=>{id=String(id??'').trim();name=String(name??'').trim();if(!id||!name)return;if(source.has(id)&&nameKey(source.get(id))!==nameKey(name))throw Error('Satu guru_id mempunyai dua nama: '+id);source.set(id,name);};
+ if(!Array.isArray(teachers))throw Error('Senarai guru tidak sah.');teachers.forEach(t=>{if(String(t.aktif||'YA').toUpperCase()!=='TIDAK')add(t.guru_id||t.id,t.nama_guru||t.name);});
+ const required=['guru_id','hari_no','waktu','masa_mula','masa_tamat','subjek_label','kelas_label'];
+ const normalized=rows.map((r,i)=>{const o={};Object.entries(r).forEach(([k,v])=>o[String(k).replace(/^\uFEFF/,'').trim().toLowerCase()]=v);required.forEach(k=>{if(o[k]===undefined||String(o[k]).trim()==='')throw Error('Lajur/nilai '+k+' tiada pada baris '+(i+1)+'.');});add(o.guru_id,o.nama_guru);return o;});
+ normalized.forEach((r,i)=>{const sid=String(r.guru_id).trim();if(!source.has(sid))throw Error('Nama guru tidak ditemui untuk '+sid+' pada baris '+(i+1)+'. Sertakan nama_guru atau tab Guru.');r.guru_id=sid;r.nama_guru=source.get(sid);});
+ if(source.size>500)throw Error('Maksimum 500 guru setiap import.');return {teachers:Array.from(source,([sourceId,name])=>({sourceId,name})),rows:normalized};
+}
+function rowsToObjects(matrix){
+ const rows=matrix.filter(r=>r.some(v=>String(v??'').trim()!==''));if(rows.length<2)throw Error('Fail kosong atau tiada baris data.');const heads=rows[0].map(h=>String(h).replace(/^\uFEFF/,'').trim().toLowerCase());if(new Set(heads).size!==heads.length||heads.some(h=>!h))throw Error('Header fail kosong atau berganda.');return rows.slice(1).map((r,i)=>{if(r.length>heads.length&&r.slice(heads.length).some(v=>v!==''))throw Error('Terlalu banyak nilai pada baris '+(i+2)+'. Semak pemisah CSV.');const o={};heads.forEach((h,j)=>o[h]=r[j]??'');return o;});
+}
+function parseCSV(text){
+ text=text.replace(/^\uFEFF/,'');const first=text.split(/\r?\n/,1)[0];const delimiters=[',',';','\t'];const delimiter=delimiters.sort((a,b)=>first.split(b).length-first.split(a).length)[0];
+ const rows=[];let row=[],field='',quoted=false,afterQuote=false;
+ const endField=()=>{row.push(field);field='';afterQuote=false;};
+ for(let i=0;i<text.length;i++){const c=text[i];if(quoted){if(c==='"'){if(text[i+1]==='"'){field+='"';i++;}else{quoted=false;afterQuote=true;}}else field+=c;}
+ else if(c===delimiter){endField();}else if(c==='\n'||c==='\r'){if(c==='\r'&&text[i+1]==='\n')i++;endField();rows.push(row);row=[];}
+ else if(c==='"'&&!field&&!afterQuote)quoted=true;else if(afterQuote&&c.trim())throw Error('Tanda petik CSV tidak sah.');else if(!afterQuote)field+=c;}
+ if(quoted)throw Error('Tanda petik CSV tidak ditutup.');endField();if(row.some(v=>v!==''))rows.push(row);return rows;
+}
+// Pembaca OOXML minimum: ZIP + XML standard pelayar; tiada makro atau formula dilaksanakan.
+async function readXlsx(buffer){
+ const bytes=new Uint8Array(buffer),v=new DataView(buffer),decode=b=>new TextDecoder('utf-8').decode(b);let eocd=-1;
+ for(let i=bytes.length-22;i>=Math.max(0,bytes.length-65557);i--)if(v.getUint32(i,true)===0x06054b50){eocd=i;break;}
+ if(eocd<0)throw Error('Fail bukan XLSX yang sah atau fail dikunci.');const count=v.getUint16(eocd+10,true);let pos=v.getUint32(eocd+16,true);if(count>1000||!count)throw Error('Struktur ZIP Excel terlalu besar atau kosong.');const entries=new Map();
+ for(let i=0;i<count;i++){
+  if(pos+46>bytes.length||v.getUint32(pos,true)!==0x02014b50)throw Error('Direktori ZIP Excel rosak.');
+  const flags=v.getUint16(pos+8,true),method=v.getUint16(pos+10,true),crc=v.getUint32(pos+16,true),compressed=v.getUint32(pos+20,true),size=v.getUint32(pos+24,true),len=v.getUint16(pos+28,true),extra=v.getUint16(pos+30,true),comment=v.getUint16(pos+32,true),offset=v.getUint32(pos+42,true);
+  const name=decode(bytes.subarray(pos+46,pos+46+len));if(entries.has(name))throw Error('Entri ZIP berganda.');entries.set(name,{flags,method,crc,compressed,size,offset});pos+=46+len+extra+comment;
+ }
+ let expanded=0;
+ async function xml(name,optional=false){
+  const e=entries.get(name);if(!e){if(optional)return null;throw Error('Komponen Excel tidak ditemui: '+name);}
+  if(e.flags&1||![0,8].includes(e.method)||e.size>12*1024*1024||expanded+e.size>32*1024*1024)throw Error('Fail Excel berkunci, terlalu besar atau menggunakan ZIP yang tidak disokong.');
+  const at=e.offset;if(at+30>bytes.length||v.getUint32(at,true)!==0x04034b50)throw Error('Entri ZIP rosak.');const start=at+30+v.getUint16(at+26,true)+v.getUint16(at+28,true);if(start+e.compressed>bytes.length)throw Error('Saiz ZIP tidak sah.');let plain=bytes.subarray(start,start+e.compressed);
+  if(e.method===8){let stream;try{stream=new Blob([plain]).stream().pipeThrough(new DecompressionStream('deflate-raw'));}catch(_){throw Error('Pelayar ini tidak menyokong bacaan Excel. Gunakan Chrome/Edge terkini atau eksport CSV UTF-8.');}const reader=stream.getReader(),chunks=[];let total=0;while(true){const {value,done}=await reader.read();if(done)break;total+=value.length;if(total>e.size||total>12*1024*1024){await reader.cancel();throw Error('Data mampatan Excel tidak sah.');}chunks.push(value);}plain=new Uint8Array(total);let off=0;chunks.forEach(b=>{plain.set(b,off);off+=b.length;});}
+  if(plain.length!==e.size||crc32(plain)!==e.crc)throw Error('Semakan integriti fail Excel gagal.');expanded+=plain.length;const text=decode(plain);if(/<!DOCTYPE|<!ENTITY/i.test(text))throw Error('Deklarasi entiti XML tidak disokong.');const doc=new DOMParser().parseFromString(text,'application/xml');if(doc.getElementsByTagName('parsererror').length)throw Error('XML Excel tidak sah.');return doc;
+ }
+ const workbook=await xml('xl/workbook.xml'),rels=await xml('xl/_rels/workbook.xml.rels'),strings=await xml('xl/sharedStrings.xml',true);
+ const shared=strings?Array.from(strings.getElementsByTagName('si'),el=>Array.from(el.getElementsByTagName('t'),t=>t.textContent).join('')):[];
+ const relationships=new Map(Array.from(rels.getElementsByTagName('Relationship'),el=>[el.getAttribute('Id'),{target:el.getAttribute('Target'),mode:el.getAttribute('TargetMode')}]));
+ const sheets={};
+ for(const s of workbook.getElementsByTagName('sheet')){
+  const name=s.getAttribute('name');if(!['jadual','guru'].includes(name.toLowerCase()))continue;const canonical=name.toLowerCase()==='jadual'?'Jadual':'Guru';if(sheets[canonical])throw Error('Tab Jadual atau Guru berganda.');
+  const id=s.getAttributeNS('http://schemas.openxmlformats.org/officeDocument/2006/relationships','id')||s.getAttribute('r:id'),rel=relationships.get(id);if(!rel||rel.mode==='External')throw Error('Rujukan tab Excel tidak sah.');
+  const parts=(rel.target.startsWith('/')?rel.target.slice(1):'xl/'+rel.target).split('/'),clean=[];for(const p of parts){if(p==='..')clean.pop();else if(p!=='.'&&p)clean.push(p);}const doc=await xml(clean.join('/'));const matrix=[];const xmlRows=doc.getElementsByTagName('row');if(xmlRows.length>20001)throw Error('Terlalu banyak baris Excel.');
+  for(const row of xmlRows){const cells=[];for(const c of row.getElementsByTagName('c')){const ref=c.getAttribute('r')||'',col=ref.match(/^[A-Z]+/);if(!col)throw Error('Rujukan sel Excel tidak sah.');let n=0;for(const ch of col[0])n=n*26+ch.charCodeAt(0)-64;if(n>100)throw Error('Tab import melebihi 100 lajur.');if(c.getElementsByTagName('f').length)throw Error('Tab import mengandungi formula. Tampal sebagai nilai dahulu.');const type=c.getAttribute('t'),raw=c.getElementsByTagName('v')[0]?.textContent??'';let value=type==='s'?shared[Number(raw)]??'':type==='inlineStr'?Array.from(c.getElementsByTagName('t'),t=>t.textContent).join(''):raw;cells[n-1]=value;}matrix.push(Array.from({length:cells.length},(_,i)=>cells[i]??''));}
+  const objects=rowsToObjects(matrix);objects.forEach(r=>{['masa_mula','masa_tamat'].forEach(k=>{if(r[k]!==undefined&&/^\d*\.?\d+$/.test(String(r[k]))){const value=Number(r[k]);if(value<0||value>=1)throw Error('Nilai masa Excel mesti pecahan sehari atau teks HH:mm.');const minutes=Math.round(value*1440);if(minutes>1439)throw Error('Masa Excel di luar julat.');r[k]=String(Math.floor(minutes/60)).padStart(2,'0')+':'+String(minutes%60).padStart(2,'0');}});});sheets[canonical]=objects;
+ }
+ if(!sheets.Jadual)throw Error('Fail Excel mesti mempunyai tab bernama Jadual.');return sheets;
+}
+let crcTable;
+function crc32(bytes){if(!crcTable)crcTable=Array.from({length:256},(_,i)=>{let c=i;for(let k=0;k<8;k++)c=c&1?0xedb88320^(c>>>1):c>>>1;return c>>>0;});let crc=0xffffffff;for(const b of bytes)crc=crcTable[(crc^b)&255]^(crc>>>8);return (crc^0xffffffff)>>>0;}
+$('file').addEventListener('change',readFile);$('mappingTable').addEventListener('change',()=>{invalidate();mappingStatus();});$('label').addEventListener('input',invalidate);$('effectiveDate').addEventListener('change',invalidate);$('preview').addEventListener('click',preview);$('confirm').addEventListener('change',()=>{$('commit').disabled=!$('confirm').checked||!state.preview;});$('commit').addEventListener('click',commit);$('recover').addEventListener('click',async()=>{busy(true,'Memulihkan data…');error('');try{const r=await rpc('recoverTimetableImport');$('success').textContent=r.message;$('success').hidden=false;await init();}catch(e){error(e.message);}finally{busy(false);}});init();
+</script></body></html>

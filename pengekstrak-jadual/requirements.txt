@@ -1,0 +1,6 @@
+streamlit==1.66.1
+pdfplumber==0.11.9
+pypdfium2==5.14.0
+pandas==2.3.3
+XlsxWriter==3.2.9
+Pillow>=10,<14

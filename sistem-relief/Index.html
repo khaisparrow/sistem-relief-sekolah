@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+  <base target="_top">
+  <meta charset="utf-8">
+  <style>
+    :root{--ink:#183342;--muted:#607581;--bg:#f2f5f6;--line:#dce5e8;--accent:#13685f;--soft:#e8f3ee;--warn:#946015;--bad:#aa3333}
+    *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.5 system-ui,-apple-system,"Segoe UI",sans-serif}button,input,select,textarea{font:inherit}button{cursor:pointer;border:1px solid var(--line);border-radius:8px;background:white;padding:9px 14px;color:var(--ink);font-weight:600}button:hover{border-color:var(--accent)}button.primary{background:var(--accent);border-color:var(--accent);color:#fff}button.danger{color:var(--bad)}button:disabled,input:disabled,select:disabled{cursor:default;opacity:.55}button.small{padding:6px 10px;font-size:12px}button.link{border:0;padding:4px 0;background:transparent;text-align:left;color:var(--accent)}input,select,textarea{width:100%;padding:10px 11px;border:1px solid #cbd8dd;background:#fff;border-radius:8px;color:var(--ink)}input:focus,select:focus,textarea:focus{outline:2px solid #9ccec4;outline-offset:1px}label{display:block;font-weight:600;margin:13px 0 6px}textarea{resize:vertical;min-height:70px}h1,h2,h3,p{margin-top:0}h1{font-size:23px;line-height:1.3;letter-spacing:-.5px;margin-bottom:4px}h2{font-size:16px;margin-bottom:12px}h3{font-size:15px;margin-bottom:4px}.muted{color:var(--muted)}.tiny{font-size:12px}.top{background:#183d51;color:white;padding:22px max(24px,calc((100vw - 1450px)/2));display:flex;justify-content:space-between;align-items:center;gap:20px}.top p{color:#bfd0d9;margin:4px 0 0}.brand{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#a8d3c8;margin-bottom:8px}.pill{font-size:12px;padding:5px 10px;border-radius:30px;background:#2d5366;white-space:nowrap}.wrap{max-width:1500px;margin:0 auto;padding:24px}.toolbar{display:flex;align-items:end;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-bottom:20px}.date-group{display:flex;gap:10px;align-items:end}.date-group label{margin-top:0;font-size:12px}.date-group input{max-width:180px}.date-label{font-weight:700;font-size:17px;padding-bottom:9px}.actions{display:flex;gap:8px;align-items:center}.source{margin-bottom:20px;color:var(--muted);font-size:12px}.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:22px}.stat{background:white;padding:17px 20px;border:1px solid var(--line);border-radius:12px}.stat b{display:block;font-size:29px;font-weight:650;line-height:1.2;margin-top:5px}.stat small{color:var(--muted)}.stat.pending b{color:var(--warn)}.layout{display:grid;grid-template-columns:310px minmax(0,1fr);gap:20px;align-items:start}.card{background:white;border:1px solid var(--line);border-radius:13px;padding:20px;margin-bottom:18px}.card-top{display:flex;justify-content:space-between;align-items:start;gap:12px}.card-top p{margin:0 0 12px}.form-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}.full{width:100%;margin-top:16px}.divider{height:1px;background:var(--line);margin:20px 0}.absence{border-top:1px solid var(--line);padding:13px 0}.absence strong{font-size:12px;display:block}.absence:first-child{border-top:0}.absence .meta{display:flex;justify-content:space-between;align-items:center;margin-top:6px;gap:6px}.empty{text-align:center;padding:35px 20px;color:var(--muted);border:1px dashed var(--line);border-radius:10px}.empty b{display:block;color:var(--ink);margin-bottom:6px}.filterbar{display:flex;gap:10px;margin:12px 0 16px}.filterbar input{flex:1;min-width:100px}.filterbar select{width:180px}.table-wrap{overflow-x:auto}table{border-collapse:collapse;width:100%;text-align:left}th{font-size:11px;text-transform:uppercase;letter-spacing:.6px;color:var(--muted);background:#f5f8f9;padding:12px 10px;border-bottom:1px solid var(--line);white-space:nowrap}td{padding:13px 10px;border-bottom:1px solid #edf1f3;vertical-align:top;font-size:12px}td strong{font-weight:650}.nowrap{white-space:nowrap}.teacher{min-width:170px;max-width:245px}.sub{font-size:11px;color:var(--muted);display:block;margin-top:3px}.tag{display:inline-block;border-radius:5px;padding:3px 7px;font-size:10px;font-weight:700;white-space:nowrap;background:var(--soft);color:#24624c}.tag.pending{background:#fff3d9;color:var(--warn)}.tag.bad{background:#fdecec;color:var(--bad)}.row-actions{display:flex;flex-direction:column;align-items:start;gap:4px}.alert{border:1px solid #ebcb91;background:#fff7e7;padding:13px 16px;border-radius:9px;margin-bottom:18px;color:#744f15}.alert.error{background:#fff0ed;border-color:#efc5be;color:#9b2929}.notice{position:fixed;bottom:22px;left:50%;transform:translateX(-50%);max-width:90vw;padding:12px 20px;background:#183d51;color:#fff;border-radius:10px;box-shadow:0 8px 30px #18334233;z-index:50}.tabs{display:flex;gap:18px;margin:0 0 16px;border-bottom:1px solid var(--line)}.tabs button{border:0;border-radius:0;padding:0 0 10px;background:transparent;color:var(--muted)}.tabs button.active{border-bottom:3px solid var(--accent);color:var(--accent)}.busy-overlay{position:fixed;inset:0;background:#f2f5f6bb;display:grid;place-items:center;z-index:100;cursor:wait}.busy-overlay div{background:white;border:1px solid var(--line);padding:18px 25px;border-radius:12px;box-shadow:0 5px 30px #18334211}.modal-cover{position:fixed;inset:0;background:#0b233b88;display:grid;place-items:center;z-index:60;padding:20px}.modal{background:white;border-radius:16px;max-width:720px;width:100%;max-height:92vh;overflow:auto;padding:26px;box-shadow:0 18px 70px #102b4455}.modal-head{display:flex;justify-content:space-between;align-items:start;gap:14px}.lesson-box{background:#f1f6f5;border:1px solid #d8e7e3;border-radius:10px;padding:13px;margin:12px 0}.candidate-list{max-height:285px;overflow:auto;border:1px solid var(--line);border-radius:9px;margin-top:10px}.candidate{display:flex;align-items:start;gap:10px;padding:11px 13px;margin:0;border-bottom:1px solid var(--line);font-weight:400;cursor:pointer}.candidate:last-child{border:0}.candidate input{width:auto;margin:5px 0 0;accent-color:var(--accent)}.candidate .name{font-size:12px;font-weight:600}.candidate.blocked{background:#fafafa;color:var(--muted);cursor:default}.candidate .reason{display:block;font-size:11px;color:var(--bad);margin-top:3px}.candidate-tools{display:flex;align-items:center;gap:8px;margin-top:10px;font-weight:400;font-size:12px}.candidate-tools input{width:auto}.modal-foot{display:flex;justify-content:end;gap:8px;margin-top:20px}.footer{text-align:center;color:var(--muted);font-size:11px;padding:12px 0 25px}.print-only{display:none}[hidden]{display:none!important}
+    .layout>*{min-width:0}.table-wrap{max-width:100%}
+    @media(max-width:1100px){.wrap{padding:18px}.layout{grid-template-columns:270px minmax(0,1fr)}.card{padding:16px}}
+    @media(max-width:820px){.layout{grid-template-columns:1fr}.stats{grid-template-columns:repeat(2,1fr)}.top{padding:20px}.top .pill{display:none}.date-label{font-size:14px}.filterbar{flex-wrap:wrap}.filterbar select{width:100%}.modal-cover{padding:10px}.modal{padding:20px}.teacher{min-width:150px}.form-row{grid-template-columns:1fr 1fr}}
+    @media print{@page{size:A4 landscape;margin:12mm}body{background:white;font-size:10px}.screen-only,.modal-cover,.notice,.busy-overlay{display:none!important}.print-only{display:block}.print-only h1{font-size:18px}.print-only p{margin-bottom:5px}.print-only table{margin-top:14px}.print-only th{font-size:9px;color:black;background:#eee;letter-spacing:0;padding:6px}.print-only td{font-size:9px;padding:7px 6px;color:#000}.print-only tr{break-inside:avoid}.print-only thead{display:table-header-group}.print-only .print-note{font-size:9px;margin-top:12px}}
+  </style>
+</head>
+<body>
+  <div class="screen-only">
+    <header class="top"><div><div class="brand">Pengurusan guru ganti</div><h1>Sistem Relief Sekolah</h1><p id="school">Memuatkan sekolah…</p></div><span class="pill">Penetapan manual · Versi 1.0</span></header>
+    <main class="wrap" id="main" aria-busy="false">
+      <div class="toolbar"><div class="date-group"><div><label for="date">Tarikh relief</label><input type="date" id="date" min="2000-01-01" max="2100-12-31"></div><div class="date-label" id="dayLabel"></div></div><div class="actions"><button id="refresh">Muat semula</button><button id="print" class="primary">Cetak jadual</button></div></div>
+      <div id="error" class="alert error" role="alert" hidden></div>
+      <div class="source" id="source"></div>
+      <div class="stats"><div class="stat"><small>Guru tidak hadir</small><b id="nAbsent">—</b></div><div class="stat"><small>Waktu perlu diganti</small><b id="nTotal">—</b></div><div class="stat"><small>Sudah ditetapkan</small><b id="nAssigned">—</b></div><div class="stat pending"><small>Belum ditetapkan</small><b id="nPending">—</b></div></div>
+      <div id="orphaned" class="alert" hidden></div>
+      <div class="layout">
+        <aside class="card"><h2>Rekod ketidakhadiran</h2><p class="muted tiny">Pilih guru untuk memaparkan kelas yang memerlukan relief pada tarikh ini.</p>
+          <form id="absenceForm"><label for="absTeacher">Guru tidak hadir</label><select id="absTeacher" required><option value="">Pilih guru</option></select>
+            <label for="duration">Tempoh</label><select id="duration"><option value="all">Sepanjang hari</option><option value="part">Sebahagian hari</option></select>
+            <div class="form-row" id="partial" hidden><div><label for="absStart">Mula</label><input type="time" id="absStart" value="07:30" required></div><div><label for="absEnd">Tamat</label><input type="time" id="absEnd" value="14:50" required></div></div>
+            <label for="reason">Sebab <span class="muted tiny">(pilihan)</span></label><input id="reason" maxlength="300" placeholder="Contoh: berkursus">
+            <button class="primary full" type="submit">Tambah ketidakhadiran</button>
+          </form><div class="divider"></div><h2>Senarai hari ini</h2><div id="absenceList"></div>
+        </aside>
+        <section class="card"><div class="tabs"><button id="tabRelief" class="active" type="button">Penetapan relief</button><button id="tabWorkload" type="button">Ringkasan guru</button></div>
+          <div id="reliefView"><div class="card-top"><div><h2>Kelas yang perlu diganti</h2><p class="muted tiny">Satu baris bagi setiap waktu. Masa sebenar digunakan untuk semakan pertindihan.</p></div></div>
+            <div class="filterbar"><input id="search" type="search" aria-label="Cari kelas, guru atau subjek" placeholder="Cari kelas, guru atau subjek…"><select id="statusFilter" aria-label="Tapis status"><option value="">Semua status</option><option>BELUM DITETAPKAN</option><option>DITETAPKAN</option><option>SEMAK</option></select></div>
+            <div id="taskList"></div><p id="filteredCount" class="muted tiny" style="margin:12px 0 0"></p>
+          </div>
+          <div id="workloadView" hidden><h2>Ringkasan waktu harian</h2><p class="muted tiny">Waktu pengajaran asal dan relief dipaparkan berasingan. Ketidakhadiran mungkin melibatkan sebahagian hari.</p><input type="search" id="workloadSearch" placeholder="Cari nama guru…" aria-label="Cari guru dalam ringkasan"><div id="workloadList" class="table-wrap" style="margin-top:12px"></div></div>
+        </section>
+      </div><div class="footer">Calon yang tiada pertindihan masih perlu disemak untuk tugas lain oleh penyelaras.</div>
+    </main>
+  </div>
+  <div id="modalCover" class="modal-cover" hidden><section class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle"><div class="modal-head"><div><h2 id="modalTitle">Tetapkan guru ganti</h2><p class="muted tiny" style="margin:0">Pilihan disusun mengikut bilangan waktu relief yang paling sedikit.</p></div><button id="closeModal" aria-label="Tutup" type="button">✕</button></div>
+    <div id="lessonInfo" class="lesson-box"></div><input type="search" id="candidateSearch" placeholder="Cari nama calon…" aria-label="Cari nama calon"><label class="candidate-tools"><input type="checkbox" id="showBlocked"> Paparkan juga guru yang mempunyai halangan</label><div id="candidateCount" class="muted tiny" style="margin-top:8px"></div><div id="candidateList" class="candidate-list"></div>
+    <label for="assignmentNote">Catatan untuk jadual relief <span class="muted tiny">(pilihan)</span></label><textarea id="assignmentNote" maxlength="500" placeholder="Contoh: bahan latihan ada di meja guru"></textarea><div id="modalError" class="alert error" role="alert" style="margin-top:12px" hidden></div>
+    <div class="modal-foot"><button id="cancelModal">Kembali</button><button id="saveAssignment" class="primary">Simpan penetapan</button></div>
+  </section></div>
+  <div id="notice" class="notice" role="status" hidden></div><div id="busy" class="busy-overlay" role="status" hidden><div id="busyText">Memuatkan…</div></div>
+  <section id="printArea" class="print-only"></section>
+  <script>
+    'use strict';
+    const $=id=>document.getElementById(id);
+    const state={boot:null,day:null,task:null,candidates:[],selected:'',busy:false,loadSequence:0,lastFocus:null};
+    const esc=value=>String(value??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+    const dateLabel=date=>{const [y,m,d]=date.split('-');return `${d}/${m}/${y}`};
+    function rpc(name,payload){return new Promise((resolve,reject)=>{google.script.run.withSuccessHandler(resolve).withFailureHandler(e=>reject(new Error(e.message||String(e))))[name](payload)});}
+    function busy(on,message){state.busy=on;$('busy').hidden=!on;$('busyText').textContent=message||'Memuatkan…';$('main').setAttribute('aria-busy',String(on));document.querySelectorAll('button,input,select,textarea').forEach(el=>{el.disabled=on||el.dataset.locked==='true'});}
+    function error(message,target='error'){$(target).textContent=message||'';$(target).hidden=!message;}
+    let noticeTimer;
+    function notify(message){clearTimeout(noticeTimer);$('notice').textContent=message;$('notice').hidden=false;noticeTimer=setTimeout(()=>$('notice').hidden=true,4500);}
+    function payload(extra){return Object.assign({date:state.day.date,revision:state.day.revision},extra);}
+    async function init(){
+      busy(true,'Membaca data jadual…');
+      try{state.boot=await rpc('getBootstrap');$('school').textContent=state.boot.school;$('source').textContent=`Jadual sumber: ${state.boot.source}. Pastikan edisi ini masih digunakan sekolah.`;$('date').value=state.boot.today;
+        $('absTeacher').innerHTML='<option value="">Pilih guru</option>'+state.boot.teachers.map(t=>`<option value="${esc(t.id)}">${esc(t.name)}</option>`).join('');
+        state.day=await rpc('getDay',state.boot.today);render();
+      }catch(e){error(e.message);}finally{busy(false);}
+    }
+    async function loadDay(){
+      const date=$('date').value;if(!date){error('Pilih tarikh dahulu.');return;}
+      const n=++state.loadSequence;closeModal();busy(true,'Memuatkan relief harian…');error('');
+      try{const day=await rpc('getDay',date);if(n===state.loadSequence){state.day=day;render();}}
+      catch(e){error(e.message);if(state.day)$('date').value=state.day.date;}finally{if(n===state.loadSequence)busy(false);}
+    }
+    function render(){
+      const d=state.day;if(!d)return;
+      $('date').value=d.date;$('dayLabel').textContent=d.day;
+      $('nAbsent').textContent=d.stats.absent;$('nTotal').textContent=d.stats.total;$('nAssigned').textContent=d.stats.assigned;$('nPending').textContent=d.stats.pending;
+      $('absenceList').innerHTML=d.absences.length?d.absences.map(a=>`<div class="absence"><strong>${esc(a.name)}</strong><div class="sub">${a.start==='00:00'&&a.end==='23:59'?'Sepanjang hari':esc(a.start+'–'+a.end)}${a.reason?' · '+esc(a.reason):''}</div><div class="meta"><span class="tiny muted">${d.tasks.filter(t=>t.originalId===a.teacherId).length} waktu perlu diganti</span><button class="link tiny danger" data-cancel-absence="${esc(a.id)}">Batalkan</button></div></div>`).join(''):'<div class="muted tiny">Belum ada rekod ketidakhadiran.</div>';
+      let alerts=[];
+      if(d.stats.warnings)alerts.push(`<strong>${d.stats.warnings} rekod memerlukan semakan.</strong> Tukar atau batalkan penetapan yang mempunyai halangan.`);
+      if(d.orphaned.length)alerts.push(d.orphaned.map(r=>`<div style="margin-top:8px">Penetapan ${esc(r.jadualId)} (${esc(r.substitute)}) tidak lagi mempunyai kelas relief yang sepadan. <button class="small danger" data-cancel-relief="${esc(r.id)}">Batalkan rekod</button></div>`).join(''));
+      $('orphaned').hidden=!alerts.length;$('orphaned').innerHTML=alerts.join('<br>');
+      renderTasks();renderWorkloads();renderPrint();
+    }
+    function renderTasks(){
+      if(!state.day)return;
+      const q=$('search').value.trim().toLowerCase(),filter=$('statusFilter').value;
+      const rows=state.day.tasks.filter(t=>(!filter||t.status===filter)&&`${t.original} ${t.substitute} ${t.classLabel} ${t.subject} ${t.room}`.toLowerCase().includes(q));
+      if(!state.day.tasks.length){$('taskList').innerHTML=`<div class="empty"><b>${state.day.absences.length?'Tiada waktu pengajaran perlu diganti':'Mulakan dengan merekod guru tidak hadir'}</b>${state.day.absences.length?'Tiada kelas dalam jadual pada hari atau tempoh ketidakhadiran ini.':'Kelas guru berkenaan akan muncul di sini.'}</div>`;$('filteredCount').textContent='';return;}
+      if(!rows.length){$('taskList').innerHTML='<div class="empty">Tiada rekod sepadan dengan carian atau tapisan.</div>';}
+      else $('taskList').innerHTML=`<div class="table-wrap"><table><thead><tr><th>Waktu</th><th>Kelas / subjek</th><th>Guru asal</th><th>Guru ganti</th><th>Tindakan</th></tr></thead><tbody>${rows.map(t=>`<tr><td class="nowrap"><strong>${esc(t.start)}–${esc(t.end)}</strong><span class="sub">Waktu ${t.period}</span></td><td><strong>${esc(t.classLabel)}</strong><span class="sub">${esc(t.subject)}${t.room?' · '+esc(t.room):''}</span><span class="sub">PDF: halaman ${esc(t.page)}</span></td><td class="teacher">${esc(t.original)}</td><td class="teacher">${t.substitute?`<strong>${esc(t.substitute)}</strong><br>`:''}<span class="tag ${t.status==='SEMAK'?'bad':t.status==='DITETAPKAN'?'':'pending'}">${esc(t.status)}</span>${t.note?`<span class="sub">${esc(t.note)}</span>`:''}${t.warnings.map(w=>`<span class="sub" style="color:var(--bad)">${esc(w)}</span>`).join('')}</td><td><div class="row-actions"><button class="small" data-assign="${esc(t.id)}">${t.reliefId?'Tukar':'Pilih guru'}</button>${t.reliefId?`<button class="link tiny danger" data-cancel-relief="${esc(t.reliefId)}">Batalkan</button>`:''}</div></td></tr>`).join('')}</tbody></table></div>`;
+      $('filteredCount').textContent=`${rows.length} daripada ${state.day.tasks.length} waktu dipaparkan. Cetakan merangkumi semua waktu pada tarikh ini.`;
+    }
+    function renderWorkloads(){
+      if(!state.day)return;const q=$('workloadSearch').value.toLowerCase();const rows=state.day.workloads.filter(t=>t.name.toLowerCase().includes(q));
+      $('workloadList').innerHTML=`<table><thead><tr><th>Guru</th><th>Kelas asal</th><th>Relief</th><th>Ketidakhadiran</th></tr></thead><tbody>${rows.map(t=>`<tr><td>${esc(t.name)}</td><td>${t.teaching} waktu</td><td><strong>${t.relief} waktu</strong></td><td>${t.absent?'Ada rekod':'—'}</td></tr>`).join('')}</tbody></table>`;
+    }
+    async function addAbsence(e){
+      e.preventDefault();if(!state.day)return;
+      const part=$('duration').value==='part';
+      const p=payload({teacherId:$('absTeacher').value,start:part?$('absStart').value:'00:00',end:part?$('absEnd').value:'23:59',reason:$('reason').value});
+      busy(true,'Menyimpan ketidakhadiran…');error('');
+      try{state.day=await rpc('saveAbsence',p);$('absTeacher').value='';$('reason').value='';render();notify('Ketidakhadiran disimpan.');}catch(e){error(e.message);}finally{busy(false);}
+    }
+    async function removeAbsence(id){
+      const a=state.day.absences.find(a=>a.id===id);if(!a)return;
+      if(!confirm(`Batalkan ketidakhadiran ${a.name}? Semua penetapan relief bagi guru asal ini pada tarikh tersebut turut dibatalkan.`))return;
+      await mutation('cancelAbsence',payload({absenceId:id}),'Ketidakhadiran dan penetapan berkaitan dibatalkan.');
+    }
+    async function removeAssignment(id){
+      if(!confirm('Batalkan penetapan guru ganti ini? Rekod pembatalan akan kekal dalam tab Relief.'))return;
+      await mutation('cancelAssignment',payload({reliefId:id}),'Penetapan dibatalkan.');
+    }
+    async function mutation(name,p,message){busy(true,'Menyimpan perubahan…');error('');try{state.day=await rpc(name,p);render();notify(message);}catch(e){error(e.message);}finally{busy(false);}}
+    async function openAssignment(id){
+      const task=state.day.tasks.find(t=>t.id===id);if(!task)return;
+      state.lastFocus=document.activeElement;busy(true,'Menyemak calon guru ganti…');error('');
+      try{
+        const r=await rpc('getCandidates',{date:state.day.date,jadualId:id});
+        if(r.revision!==state.day.revision)throw new Error('Data telah berubah. Klik Muat semula sebelum memilih guru.');
+        state.task=task;state.candidates=r.candidates;state.selected=task.substituteId;
+        $('lessonInfo').innerHTML=`<strong>${esc(task.classLabel)} · ${esc(task.subject)}</strong><div>${esc(task.start)}–${esc(task.end)} · Waktu ${task.period}${task.room?' · '+esc(task.room):''}</div><div class="muted tiny">Guru asal: ${esc(task.original)}</div>`;
+        $('candidateSearch').value='';$('showBlocked').checked=false;$('assignmentNote').value=task.note;error('','modalError');renderCandidates();$('modalCover').hidden=false;
+      }catch(e){error(e.message);}finally{busy(false);if(!$('modalCover').hidden)$('candidateSearch').focus();}
+    }
+    function renderCandidates(){
+      const q=$('candidateSearch').value.toLowerCase(),blocked=$('showBlocked').checked;
+      const available=state.candidates.filter(c=>!c.reasons.length).length;
+      $('candidateCount').textContent=`${available} guru tiada pertindihan dalam rekod. Semak tugas lain sebelum memilih.`;
+      const rows=state.candidates.filter(c=>(blocked||!c.reasons.length)&&c.name.toLowerCase().includes(q));
+      $('candidateList').innerHTML=rows.length?rows.map(c=>`<label class="candidate ${c.reasons.length?'blocked':''}"><input type="radio" name="candidate" value="${esc(c.id)}" ${state.selected===c.id?'checked':''} ${c.reasons.length?'disabled data-locked="true"':''}><span><span class="name">${esc(c.name)}</span><span class="sub">${c.reliefCount} waktu relief pada tarikh ini</span>${c.reasons.length?`<span class="reason">${esc(c.reasons.join(' '))}</span>`:''}</span></label>`).join(''):'<div class="empty">Tiada calon sepadan. Semak carian atau paparkan guru yang mempunyai halangan.</div>';
+    }
+    function closeModal(){
+      const wasOpen=!$('modalCover').hidden;$('modalCover').hidden=true;state.task=null;
+      if(wasOpen&&state.lastFocus&&state.lastFocus.isConnected)state.lastFocus.focus();
+    }
+    async function saveAssignment(){
+      if(!state.task)return;
+      const candidate=state.candidates.find(c=>c.id===state.selected&&!c.reasons.length);
+      if(!candidate){error('Pilih seorang guru yang tiada halangan dahulu.','modalError');return;}
+      const p=payload({jadualId:state.task.id,teacherId:candidate.id,note:$('assignmentNote').value});
+      busy(true,'Menyemak pertindihan dan menyimpan…');error('','modalError');
+      try{state.day=await rpc('saveAssignment',p);closeModal();render();notify('Guru ganti berjaya ditetapkan.');}catch(e){error(e.message,'modalError');}finally{busy(false);}
+    }
+    function renderPrint(){
+      const d=state.day;if(!d)return;
+      $('printArea').innerHTML=`<h1>${esc(state.boot.school)}</h1><p><strong>Jadual relief · ${esc(d.day)}, ${esc(dateLabel(d.date))}</strong></p><p>${d.stats.absent} guru tidak hadir · ${d.stats.total} waktu · ${d.stats.assigned} ditetapkan · ${d.stats.pending} belum ditetapkan${d.stats.warnings?' · '+d.stats.warnings+' perlu semakan':''}</p><table><thead><tr><th>Bil.</th><th>Masa / waktu</th><th>Kelas</th><th>Subjek / bilik</th><th>Guru asal</th><th>Guru ganti</th><th>Catatan / status</th></tr></thead><tbody>${d.tasks.map((t,i)=>`<tr><td>${i+1}</td><td class="nowrap">${esc(t.start)}–${esc(t.end)}<br>Waktu ${t.period}</td><td>${esc(t.classLabel)}</td><td>${esc(t.subject)}${t.room?'<br>'+esc(t.room):''}</td><td>${esc(t.original)}</td><td><strong>${esc(t.substitute||'BELUM DITETAPKAN')}</strong></td><td>${esc(t.note)}${t.warnings.length?'<br>SEMAK: '+esc(t.warnings.join('; ')):''}</td></tr>`).join('')}</tbody></table>${d.tasks.length?'':'<p>Tiada waktu relief pada tarikh ini.</p>'}${d.orphaned.length?'<p>PERLU SEMAK: '+d.orphaned.length+' penetapan tidak lagi mempunyai kelas relief yang sepadan.</p>':''}<p class="print-note">Sumber: ${esc(state.boot.source)}. Label kelas dan subjek gabungan dikekalkan mengikut jadual asal.</p>`;
+    }
+    $('absenceForm').addEventListener('submit',addAbsence);
+    $('duration').addEventListener('change',()=>{$('partial').hidden=$('duration').value!=='part';});
+    $('date').addEventListener('change',loadDay);$('refresh').addEventListener('click',()=>state.boot?loadDay():init());
+    $('print').addEventListener('click',()=>{if(!state.day)return;renderPrint();window.print();});
+    $('search').addEventListener('input',renderTasks);$('statusFilter').addEventListener('change',renderTasks);$('workloadSearch').addEventListener('input',renderWorkloads);
+    $('candidateSearch').addEventListener('input',renderCandidates);$('showBlocked').addEventListener('change',renderCandidates);
+    $('candidateList').addEventListener('change',e=>{if(e.target.name==='candidate')state.selected=e.target.value;});
+    $('closeModal').addEventListener('click',closeModal);$('cancelModal').addEventListener('click',closeModal);$('saveAssignment').addEventListener('click',saveAssignment);
+    $('tabRelief').addEventListener('click',()=>{ $('reliefView').hidden=false;$('workloadView').hidden=true;$('tabRelief').classList.add('active');$('tabWorkload').classList.remove('active'); });
+    $('tabWorkload').addEventListener('click',()=>{ $('reliefView').hidden=true;$('workloadView').hidden=false;$('tabWorkload').classList.add('active');$('tabRelief').classList.remove('active'); });
+    document.addEventListener('click',e=>{if(state.busy)return;const a=e.target.closest('[data-assign]'),b=e.target.closest('[data-cancel-absence]'),c=e.target.closest('[data-cancel-relief]');if(a)openAssignment(a.dataset.assign);else if(b)removeAbsence(b.dataset.cancelAbsence);else if(c)removeAssignment(c.dataset.cancelRelief);});
+    document.addEventListener('keydown',e=>{
+      if($('modalCover').hidden||state.busy)return;
+      if(e.key==='Escape'){e.preventDefault();closeModal();}
+      if(e.key==='Tab'){
+        const items=[...$('modalCover').querySelectorAll('button,input,textarea')].filter(el=>!el.disabled&&el.offsetParent!==null);
+        const first=items[0],last=items[items.length-1];
+        if(e.shiftKey&&document.activeElement===first){e.preventDefault();last.focus();}else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first.focus();}
+      }
+    });
+    init();
+  </script>
+</body>
+</html>
