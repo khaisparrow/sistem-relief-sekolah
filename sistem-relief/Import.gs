@@ -6,9 +6,14 @@ const IMPORT_WAKTU_=['susunan_pdf','label_waktu','masa_mula','masa_tamat','jenis
 
 function reliefPage_(e){
   requireAdmin_();const isImport=e&&e.parameter&&e.parameter.page==='import';
-  const url=ScriptApp.getService().getUrl()||'';
-  let html=HtmlService.createHtmlOutputFromFile(isImport?'ImportPanel':'Index').getContent();
-  if(isImport){html=html.replace('<!--APP_URL-->',htmlEscape_(url));}
+  const url=ScriptApp.getService().getUrl();
+  if(!url)throw Error('Pautan web app belum tersedia. Deploy sebagai Web app dan buka pautan /exec.');
+  // Isi pautan pada sumber mentah sebelum HtmlService memproses aksara dalam atribut.
+  let html=HtmlService.createTemplateFromFile(isImport?'ImportPanel':'Index').getRawContent();
+  if(isImport){
+    // Kekalkan keserasian dengan ImportPanel lama semasa kemas kini fail.
+    html=html.replace(/__RELIEF_APP_URL__|<!--APP_URL-->/g,()=>htmlEscape_(url));
+  }
   else {
     const link='<a href="'+htmlEscape_(url+'?page=import')+'" target="_top" class="screen-only" style="display:inline-block;background:white;border:1px solid #cbd8dd;border-radius:8px;padding:9px 14px;color:#183342;text-decoration:none;font-weight:600">Import jadual</a>';
     if(html.indexOf('<div class="actions">')>=0)html=html.replace('<div class="actions">','<div class="actions">'+link);
